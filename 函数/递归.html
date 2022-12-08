@@ -1,0 +1,21 @@
+<script>
+  // 阶乘
+  const f1 = (n)=>  n===1
+                    ? n
+                    : n * f1(n-1)
+
+  console.log(f1(4));
+
+  // 斐波那契数列
+  const f2 = (n)=>{
+    if(n===0) {
+      return 0
+    }else if(n===1 || n===2){
+      return 1
+    }else{
+      return f2(n-1) + f2(n-2)
+    }
+  }
+
+console.log(f2(13));
+</script>

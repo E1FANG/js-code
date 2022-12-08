@@ -1,0 +1,48 @@
+<script>
+  const b = JSON.parse(JSON.stringify(a))
+
+  // 1,不支持Date，正则，undefined，函数等数据
+  // 2,不支持引用（即环状结构，自己或自己的属性引用自己）
+  const deepClone = (target, cache) => {
+
+    if (!cache) {
+       cache = new Map()
+    }
+
+    if (target instanceof Object) {
+      let result
+      if (cache.get(target)) {
+        return cache.get(target)
+      }
+      //处理引用类型
+      if (target instanceof Function) {
+        if (target.prototype) {
+          result = function () { return target.apply(this, arguments) }
+        } else {
+          result =  (...args)=> { return target.call(undefined, ...args) }
+        }
+      } else if (target instanceof Date) {
+        result = new Date(target - 0)
+      } else if (target instanceof RegExp) {
+        result = new RegExp(target.source, target.flags)
+      } else if (target instanceof Array) {
+        result = [...target]
+      } else {
+        result = {}
+      }
+
+      //要在递归之前set，不然会爆栈，因为进入递归你还没set就get了，一样进入闭环
+      cache.set(target, result)
+      for (const key in target) {
+        if (target.hasOwnProperty(key)) {
+          result[key] = deepClone(target[key], cache)
+        }
+      }
+      return result
+    } else {
+      // 处理非对象,直接返回
+      // number,string,boolean,undefined,null,bigint,symbol
+      return target
+    }
+  }
+</script>

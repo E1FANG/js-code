@@ -1,0 +1,22 @@
+<script>
+  // 打断回城
+  const tp = ()=>{
+    console.log('回城');
+  }
+
+  const debounce = (fn,time)=>{
+    let timer =null 
+    return (...args)=>{
+      if(timer){
+        clearTimeout(timer)
+      }
+      timer = setTimeout(()=>{
+        fn.call(undefined,...args)
+        timer = null
+      },time)
+    }
+  }
+
+  const useTp = debounce(tp,2000)
+
+</script>

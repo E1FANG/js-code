@@ -1,0 +1,24 @@
+<script>
+  class Tool {
+    name="tool"
+    _value=''
+    constructor(value){
+      this._value = value
+    }
+    get value (){
+      return this._value
+    }
+  }
+
+  const myTool = new Proxy(Tool,{
+    construct(target,args){
+      return new target(...args)
+    },
+    get(target,key){
+      console.log('get',target,key)
+      return target[key]
+    }
+  })
+
+  window.myTool = myTool
+</script>

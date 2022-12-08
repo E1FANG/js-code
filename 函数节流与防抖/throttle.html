@@ -1,0 +1,23 @@
+<script>
+  // 技能冷却
+  const flash = (distance) => {
+    console.log('闪现');
+    console.log('位移了' + distance + '码');
+    console.log(this);
+  }
+
+  const throttle = (fn, time) => {
+    let 冷却中 = false
+    let timer = null
+    return (...args) => {
+      if (冷却中) return
+      fn.call( undefined,...args)
+      冷却中 = true
+      timer = setTimeout(() => {
+        冷却中 = false
+      }, time)
+    }
+  }
+
+  const useFlash = throttle(flash, 3000)
+</script>

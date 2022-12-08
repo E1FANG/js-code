@@ -1,0 +1,23 @@
+<script>
+  const arr =  [1,2,3,4,1,2,'1','2','1']
+
+  // 最简单的方法：
+  const res1 = [...new Set(arr)]
+  console.log('res1',res1);
+
+  // 上面的方法太快了，甚至比面试官说问题的时间还短
+  // 使用 Map，更体现技术的方法
+
+  const uniq = (array)=>{
+    const map = new Map()
+    array.forEach(e=>{
+      if(map.has(e)) return
+      map.set(e,true)
+    })
+    return [...map.keys()]
+  }
+
+  const res2 = uniq(arr)
+  console.log('res2',res2);
+
+</script>

@@ -1,0 +1,16 @@
+<script>
+  var length = 4
+  // function callBack(){
+  //   console.log(this.length);
+  // }
+  const callBack = ()=>{
+    console.log(this.length);
+  }
+  const obj = {
+    length:5,
+    method(callBack){
+      callBack()
+    }
+  }
+  obj.method(callBack,1,2)
+</script>

@@ -1,0 +1,17 @@
+<script>
+  const arr = [1,[2,'3',[4,5,[6,7]]]]
+
+  const flat =(arr)=>{
+    const res = []
+    arr.forEach(e=>{
+      if(Array.isArray(e)){
+        res.push(...flat(e))
+      }else{
+        res.push(e)
+      }
+    })
+    return res
+  }
+  const result = flat(arr)
+  console.log(result);
+</script>

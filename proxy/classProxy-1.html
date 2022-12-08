@@ -1,0 +1,18 @@
+<script>
+  class Test {
+      constructor() {
+        this.a = 1;
+      }
+    }
+
+    let P = new Proxy(Test,{
+      construct(target, args){
+        return new target(...args);
+      },
+      get(target, propertyKey){
+        return target[propertyKey]
+      }
+    })
+
+    let i = new P()
+</script>

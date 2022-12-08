@@ -1,0 +1,64 @@
+<script>
+
+  const deepClone = (target,cache) => {
+    if(!cache){
+      cache = new Map()
+    }
+    if (target instanceof Object) {
+      if (cache.get(target)) {
+        return cache.get(target)
+      }
+      let result
+      // 函数
+      if (target instanceof Function) {
+        //普通函数 根据prototype判断
+        if (target.prototype) {
+          result = function () { return target.apply(this, arguments) }
+        } else {
+          // 箭头函数 没有this
+          result = (...args) => target.call(undefined, ...args)
+        }
+      } else if (target instanceof Array) {
+        result = [...target]
+      } else if (target instanceof Date) {
+        // Date类减去数字，先转换成毫秒数再完成运算，返回毫秒数
+        // 距离1970年1月1号过了多少毫秒数
+        result = new Date(target - 0)
+      } else if (target instanceof RegExp) {
+        result = new RegExp(target.source, target.flags)
+      } else {
+        result = {}
+      }
+      //要在递归之前set，不然会爆栈，因为进入递归你还没set就get了，一样进入闭环
+      cache.set(target, result)
+      // 对象属性拷贝
+      for (let key in target) {
+        if (target.hasOwnProperty(key)) {
+          // 递归
+          result[key] = deepClone(target[key],cache)
+        }
+      }
+      return result
+    } else {
+      // string,number,boolean,undefined,null,bigint,symbol
+      return target
+    }
+  }
+
+  const a = {
+    number: 1, bool: false, str: 'hi', empty1: undefined, empty2: null,
+    array: [
+      { name: 'frank', age: 18 },
+      { name: 'jacky', age: 19 }
+    ],
+    date: new Date(2000, 0, 1, 20, 30, 0),
+    regex: /\.(j|t)sx/i,
+    obj: { name: 'frank', age: 18 },
+    f1: (a, b) => a + b,
+    f2: function (a, b) { return a + b }
+  }
+
+  a.self = a
+
+  const b = deepClone(a)
+</script>

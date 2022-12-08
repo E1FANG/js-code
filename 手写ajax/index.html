@@ -1,0 +1,23 @@
+<script>
+// 1 新建
+// 2 open
+// 3 配置
+// 4 发送
+
+const xhr = new XMLHttpRequest()
+
+xhr.open('GET','/xxxx')
+
+xhr.onreadystatechange = function(){
+  if(xhr.readyState === 4){
+    if(xhr.status >=200 && xhr.status <=300 || xhr.status ===304){
+      success(xhr)
+    }else{
+      fail(xhr)
+    }
+  }
+}
+
+xhr.send()
+
+</script>
