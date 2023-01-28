@@ -1,0 +1,35 @@
+<script>
+  // 词法作用域：即静态作用域，就是函数在被创建的时候，他的作用域已经被决定了
+
+  var value = 1
+  function foo() {
+    console.log(value)
+  }
+
+  function bar() {
+    var value = 2
+    foo()
+  }
+
+  bar() // 1
+
+  // 为什么打印的是1呢
+  // 因为词法作用域，函数在创建的时候就已经决定了，跟bar里面的value没关系
+  
+  // 要想打印出2，需要在bar里面创建foo
+  
+  function bar() {
+    var value = 2
+    function foo() {
+    console.log(value)
+  }
+    foo()
+  }
+  bar()  // 2
+
+  // 此时打印的是2
+  // foo的作用域链是[bar,global]
+  // 先用的bar里面的value
+
+
+</script>
