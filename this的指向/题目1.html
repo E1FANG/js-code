@@ -3,14 +3,15 @@
   // function callBack(){
   //   console.log(this.length);
   // }
-  const callBack = ()=>{
+  const callBack = () => {
     console.log(this.length);
   }
   const obj = {
-    length:5,
-    method(callBack){
+    length: 5,
+    method(callBack) {
       callBack()
     }
   }
-  obj.method(callBack,1,2)
+  obj.method(callBack, 1, 2)
+  // 其实还是独立调用，this指向window
 </script>
