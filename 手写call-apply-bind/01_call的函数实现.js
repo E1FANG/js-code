@@ -9,7 +9,7 @@ Function.prototype.myCall = function(thisArg,...args){
   // 3. 调用需要被执行的函数
   thisArg.fn = fn
   const result =  thisArg.fn(...args) //也是使用显式绑定给fn的this绑定到thisArg上
-  delete thisArg
+  delete thisArg.fn
 
   // 4. 讲最终的结果返回出去
   return result
