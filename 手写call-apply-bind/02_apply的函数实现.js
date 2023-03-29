@@ -3,7 +3,7 @@ Function.prototype.myApply = function (thisArg,argArray){
   var fn = this
 
   // 非对象this指向window
-  thisArg = thisArg ? Object(thisArg) : window
+  thisArg = (thisArg===null || thisArg === undefined) ? window : Object(thisArg)
 
   //  绑定this，执行
   thisArg.fn = fn

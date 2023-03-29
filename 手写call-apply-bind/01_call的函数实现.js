@@ -4,7 +4,7 @@ Function.prototype.myCall = function(thisArg,...args){
   const fn = this
 
   // 2.对thisArg转换成对象类型（防止它传入的是非对象类型）
-  thisArg = thisArg? Object(thisArg) : window
+  thisArg = (thisArg===null || thisArg === undefined) ? window : Object(thisArg)
 
   // 3. 调用需要被执行的函数
   thisArg.fn = fn
